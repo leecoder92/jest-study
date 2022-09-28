@@ -64,3 +64,37 @@ test("유저 리스트에 Mike가 있는가?", () => {
 test("이거 에러 나나요?", () => {
   expect(() => fn.throwErr()).toThrow("xx");
 });
+
+// 비동기 테스트
+test("3초 후에 받아온 이름은 Mike", (done) => {
+  function callback(name) {
+    try {
+      expect(name).toBe("Mike");
+      done();
+    } catch (error) {
+      done();
+    }
+  }
+  fn.getName(callback);
+});
+
+// test("3초 후에 받아온 나이는 30", () => {
+//   return fn.getAge().then((age) => {
+//     expect(age).toBe(30);
+//   });
+// });
+
+// resolves, rejects
+// test("3초 후에 받아온 나이는 30", () => {
+//   return expect(fn.getAge()).resolves.toBe(30);
+// });
+
+// async await
+// test("3초 후에 받아온 나이는 30", async () => {
+//   const age = await fn.getAge();
+//   expect(age).toBe(30);
+// });
+
+test("3초 후에 받아온 나이는 30", async () => {
+  await expect(fn.getAge()).resolves.toBe(30);
+});
